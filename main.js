@@ -23,12 +23,9 @@ async function fetchAndRenderFilms() {
 	// Show preloader
 	loader.classList.remove('none');
 
-	console.log(page);
-
 	// Fetch films data
 	const data = await fetchData(url + `top?page=${page}`, options);
 	if (data.pagesCount > 1) page++;
-	console.log(page);
 
 	// Show the button if there are more then one pages
 	if (data.pagesCount > 1) {
@@ -58,17 +55,29 @@ async function fetchData(url, options) {
 
 function renderFilms(films) {
 	for (film of films) {
+
+		const card = document.createElement('div');
+		card.classList.add('card');
+		card.id = film.filmId;
+
+		card.onclick = openFilmDetails;
 		
 		const html = `
-					<div class="card">
+					
 					<img src=${film.posterUrlPreview} alt="Cover" class="card__img" />
 					<h3 class="card__title">${film.nameRu}</h3>
 					<p class="card__year">${film.year}</p>
 					<p class="card__rate">Рейтинг: ${film.rating}</p
-					></div>`;
-									
-		filmsWrapper.insertAdjacentHTML('beforeend', html);
+					>`;
+		
+		card.insertAdjacentHTML('afterbegin', html);
+		//filmsWrapper.insertAdjacentHTML('beforeend', html);
+		filmsWrapper.insertAdjacentElement('beforeend', card);
 	}
+}
+
+function openFilmDetails() {
+	console.log('openFilmDetails run');
 }
 
 fetchAndRenderFilms().catch((err) => console.log(err));
