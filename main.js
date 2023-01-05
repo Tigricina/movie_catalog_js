@@ -90,6 +90,9 @@ async function openFilmDetails(e) {
 
 function renderFilmData(film) {
 	console.log('render');
+	// 0. Проверка на открытую карточку фильма и её удаление
+	if (document.querySelector('.container-right')) document.querySelector('.container-right').remove();
+	
 	// 1. Render container-right
 	const containerRight = document.createElement('div');
 	containerRight.classList.add('container-right');
