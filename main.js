@@ -92,7 +92,7 @@ function renderFilmData(film) {
 	console.log('render');
 	// 0. Проверка на открытую карточку фильма и её удаление
 	if (document.querySelector('.container-right')) document.querySelector('.container-right').remove();
-	
+
 	// 1. Render container-right
 	const containerRight = document.createElement('div');
 	containerRight.classList.add('container-right');
@@ -116,7 +116,7 @@ function renderFilmData(film) {
 		<div class="film__desc">
 			<p class="film__details">${film.year}</p>
 			<p class="film__details">Рейтинг Кинопоиска: ${film.ratingKinopoisk}</p>
-			<p class="film__details">Продолжительность: ${film.filmLength}</p>
+			<p class="film__details">Продолжительность: ${formatFilmLength(film.filmLength)}</p>
 			<p class="film__details">Страна: ${film.countries[0]['country']}</p>
 			<p class="film_text">${film.description}</p>
 		</div>
@@ -125,9 +125,16 @@ function renderFilmData(film) {
 
 	containerRight.insertAdjacentHTML('beforeend', html);
 
+}
 
+function formatFilmLength(value) {
+	let length = '';
+	const hours = Math.floor(value / 60);
+	const minutes = value % 60;
 
-
+	if (hours > 0) length += hours + ' ч '
+	if (minutes > 0) length += minutes + ' мин'
+	return length;
 }
 
 fetchAndRenderFilms().catch((err) => console.log(err));
