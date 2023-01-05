@@ -10,17 +10,15 @@ const options = {
 	},
 };
 
-/*
-fetch(url + 'top', options)
-    .then(res => res.json())
-    .then(json => console.log(json))
-    .catch(err => console.log(err))
-	*/
-
 async function fetchAndRenderFilms() {
-	const response = await fetch(url + 'top', options);
-	const data = await response.json()
-	console.log(data)
+	try {
+		const response = await fetch(url + 'top', options);
+		const data = await response.json()
+		console.log(data)
+	} catch(err) {
+		console.log(err)
+	}
+	
 }
 
-fetchAndRenderFilms().catch((err) => console.log(err));
+fetchAndRenderFilms();
