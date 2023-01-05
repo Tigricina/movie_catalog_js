@@ -117,7 +117,7 @@ function renderFilmData(film) {
 			<p class="film__details">${film.year}</p>
 			<p class="film__details">Рейтинг Кинопоиска: ${film.ratingKinopoisk}</p>
 			<p class="film__details">Продолжительность: ${formatFilmLength(film.filmLength)}</p>
-			<p class="film__details">Страна: ${film.countries[0]['country']}</p>
+			<p class="film__details">Страна: ${formatCountry(film.countries)}</p>
 			<p class="film_text">${film.description}</p>
 		</div>
 		
@@ -135,6 +135,15 @@ function formatFilmLength(value) {
 	if (hours > 0) length += hours + ' ч '
 	if (minutes > 0) length += minutes + ' мин'
 	return length;
+}
+
+function formatCountry(countriesArray) {
+	let countriesString = '';
+
+	for (country of countriesArray) {
+		countriesString += country.country;
+		if (countriesArray.indexOf(country) + 1 < countriesArray.length) countriesString += ', '
+	}
 }
 
 fetchAndRenderFilms().catch((err) => console.log(err));
