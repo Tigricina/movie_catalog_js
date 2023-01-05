@@ -22,8 +22,14 @@ async function fetchAndRenderFilms() {
 	for (film of data.films) {
 		console.log(film);
 
-		const html = '<div class="card"><img src="./img/cover.webp" alt="Cover" class="card__img"><h3 class="card__title">Обливион</h3><p class="card__year">2018</p><p class="card__rate">Rate 9.2</p></div>';
-
+		const html = `
+		<div class="card">
+		<img src=${film.posterUrlPreview} alt="Cover" class="card__img" />
+		<h3 class="card__title">${film.nameRu}</h3>
+		<p class="card__year">${film.year}</p>
+		<p class="card__rate">Рейтинг: ${film.rating}</p
+		></div>`;
+									
 		filmsWrapper.insertAdjacentHTML('beforeend', html);
 	}
 }
