@@ -76,8 +76,16 @@ function renderFilms(films) {
 	}
 }
 
-function openFilmDetails() {
+async function openFilmDetails(e) {
 	console.log('openFilmDetails run');
+	console.log(e.currentTarget.id);
+
+	// Get film's Id
+	const id = e.currentTarget.id;
+
+	//Get film's data
+	const data = await fetchData(url + id, options);
+	console.log(data);
 }
 
 fetchAndRenderFilms().catch((err) => console.log(err));
