@@ -13,20 +13,27 @@ const options = {
 // Dom elements
 const filmsWrapper = document.querySelector('.films');
 const loader = document.querySelector('.loader-wrapper');
-const btnLoadMore = document.querySelector('.show-more');
+const btnShowMore = document.querySelector('.show-more');
+btnShowMore.onclick = fetchAndRenderFilms;
+
+let page = 1;
 
 // Получение и вывод TOP 250 фильмов
 async function fetchAndRenderFilms() {
 	// Show preloader
-	loader.classList.remove('none')
+	loader.classList.remove('none');
+
+	console.log(page);
 
 	// Fetch films data
-	const data = await fetchData(url + 'top', options);
+	const data = await fetchData(url + `top?page=${page}`, options);
+	if (data.pagesCount > 1) page++;
+	console.log(page);
 
-	// checking for additional pages and displaying the button
+	// Show the button if there are more then one pages
 	if (data.pagesCount > 1) {
 		// Show the button
-		btnLoadMore.classList.remove('none')
+		btnShowMore.classList.remove('none')
 	}
 
 	// Hide preloader
@@ -34,6 +41,12 @@ async function fetchAndRenderFilms() {
 
 	// Render films on page
 	renderFilms(data.films);
+
+	// Hide the button if showing the finel page
+	if (page > data.pagesCount) {
+		// Show the button
+		btnShowMore.classList.add('none')
+	}
 }
 
 async function fetchData(url, options) {
