@@ -77,15 +77,54 @@ function renderFilms(films) {
 }
 
 async function openFilmDetails(e) {
-	console.log('openFilmDetails run');
-	console.log(e.currentTarget.id);
-
 	// Get film's Id
 	const id = e.currentTarget.id;
 
 	//Get film's data
 	const data = await fetchData(url + id, options);
 	console.log(data);
+
+	// Show film's details on the page
+	renderFilmData(data);
+}
+
+function renderFilmData(film) {
+	console.log('render');
+	// 1. Render container-right
+	const containerRight = document.createElement('div');
+	containerRight.classList.add('container-right');
+	document.body.insertAdjacentElement('beforeend', containerRight);
+
+	// 2. Close button
+	const btnClose = document.createElement('button');
+	btnClose.classList.add('btn-close');
+	btnClose.innerHTML = '<img src="./img/cross.svg" alt="Close" width="24" />';
+	containerRight.insertAdjacentElement('afterbegin', btnClose);
+
+	// 2.1 Кнопка закрытия по клику - удаление контейнера со страницы
+	btnClose.onclick = () => {containerRight.remove()}
+
+	// 3. Film's details
+	const html = `<div class="film">
+		<div class="film__title">${film.nameRu}</div>
+		<div class="film__img">
+			<img src=${film.coverUrl} alt=${film.nameRu} />
+		</div>
+		<div class="film__desc">
+			<p class="film__details">${film.year}</p>
+			<p class="film__details">Рейтинг Кинопоиска: ${film.ratingKinopoisk}</p>
+			<p class="film__details">Продолжительность: ${film.filmLength}</p>
+			<p class="film__details">Страна: ${film.countries[0]['country']}</p>
+			<p class="film_text">${film.description}</p>
+		</div>
+		
+	</div>`;
+
+	containerRight.insertAdjacentHTML('beforeend', html);
+
+
+
+
 }
 
 fetchAndRenderFilms().catch((err) => console.log(err));
