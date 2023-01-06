@@ -111,7 +111,7 @@ function renderFilmData(film) {
 	const html = `<div class="film">
 		<div class="film__title">${film.nameRu}</div>
 		<div class="film__img">
-			<img src=${film.coverUrl} alt=${film.nameRu} />
+			<img src=${film.posterUrl} alt=${film.nameRu} />
 		</div>
 		<div class="film__desc">
 			<p class="film__details">${film.year}</p>
@@ -144,6 +144,7 @@ function formatCountry(countriesArray) {
 		countriesString += country.country;
 		if (countriesArray.indexOf(country) + 1 < countriesArray.length) countriesString += ', '
 	}
+	return countriesString;
 }
 
 fetchAndRenderFilms().catch((err) => console.log(err));
