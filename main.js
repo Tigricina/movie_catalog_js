@@ -71,7 +71,6 @@ function renderFilms(films) {
 					>`;
 		
 		card.insertAdjacentHTML('afterbegin', html);
-		//filmsWrapper.insertAdjacentHTML('beforeend', html);
 		filmsWrapper.insertAdjacentElement('beforeend', card);
 	}
 }
@@ -82,13 +81,17 @@ async function openFilmDetails(e) {
 
 	//Get film's data
 	const data = await fetchData(url + id, options);
-	console.log(data);
+	console.table(data);
+	const preview = await fetchData(url + id + '/videos', options);
+	console.table(preview);
 
 	// Show film's details on the page
-	renderFilmData(data);
+	renderFilmData(data, preview);
 }
 
-function renderFilmData(film) {
+
+
+function renderFilmData(film, preview) {
 	console.log('render');
 	// 0. Проверка на открытую карточку фильма и её удаление
 	if (document.querySelector('.container-right')) document.querySelector('.container-right').remove();
@@ -120,11 +123,14 @@ function renderFilmData(film) {
 			<p class="film__details">Страна: ${formatCountry(film.countries)}</p>
 			<p class="film_text">${film.description}</p>
 		</div>
-		
 	</div>`;
 
 	containerRight.insertAdjacentHTML('beforeend', html);
+	const cardPreview = `<iframe width="420" height="315"
+		src=${preview.items[0].url} allow="*">
+	</iframe> `;
 
+	containerRight.insertAdjacentHTML('beforeend', cardPreview);
 }
 
 function formatFilmLength(value) {
