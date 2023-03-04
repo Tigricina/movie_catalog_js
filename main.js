@@ -126,10 +126,10 @@ function renderFilmData(film, preview) {
 	</div>`;
 
 	containerRight.insertAdjacentHTML('beforeend', html);
-	const cardPreview = `<iframe width="420" height="315"
-		src=${preview.items[0].url} allow="*">
+	const cardPreview = `<iframe width="560" height="315"
+	src=${preview.items[0].url?.replace("watch?v=", "embed/")} title="YouTube video player" frameborder="0" allowfullscreen webkitallowfullscreen mozallowfullscreen="true">
 	</iframe> `;
-
+	console.log(cardPreview);
 	containerRight.insertAdjacentHTML('beforeend', cardPreview);
 }
 
