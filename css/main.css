@@ -154,3 +154,13 @@ body {
     margin-top: 30px;
     font-weight: 300;
 }
+.iframe.preview {
+	width: 560px;
+	height: 315px;
+}
+.preview {
+	margin: 5%;
+}
+.link {
+	color:#fff
+}
